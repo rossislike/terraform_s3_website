@@ -31,7 +31,7 @@ resource "random_string" "random" {
 }
 
 resource "aws_s3_bucket" "my_bucket" { 
-    bucket = "rumothy-hw-bucket-v${random_string.random.result}"
+    bucket = "rossislike-bucket-v${random_string.random.result}"
 }
 
 resource "aws_s3_bucket_public_access_block" "site" { 
