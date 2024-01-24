@@ -122,6 +122,10 @@ resource "aws_s3_object" "beach_jpg" {
 }
 
 resource "aws_s3_bucket_policy" "allow_site_access" {
+  depends_on = [
+    aws_s3_bucket_ownership_controls.site,
+    aws_s3_bucket_public_access_block.site,
+  ]
   bucket = aws_s3_bucket.my_bucket.id
   policy = jsonencode({
     Version = "2012-10-17"
@@ -143,6 +147,11 @@ resource "aws_s3_bucket_policy" "allow_site_access" {
     ]
   })
 }
+
+output "website_endpoint"{
+    value = "http://${aws_s3_bucket.my_bucket.id}.s3-website.${aws_s3_bucket.my_bucket.region}.amazonaws.com"
+}
+
 
 # data "aws_iam_policy_document" "allow_access_from_another_account" {
 #   statement {
